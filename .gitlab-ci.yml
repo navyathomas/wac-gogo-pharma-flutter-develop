@@ -1,0 +1,153 @@
+include: 'config/config.yml'
+before_script:
+  - source ~/.zshrc
+  # - cp config/local.properties.bak local.properties
+stages:
+  - Stage
+  - Test
+  - Build
+  - Deploy
+  - Notify
+variables:
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+    - .gradle/
+
+############ QA BUILD & DEPLOY CODE #####################
+qa-and-build:
+  stage: Build
+  when : always
+  tags :
+    - and-hybrid
+  script:
+    - flutter clean
+    - flutter build apk --flavor ${QA_APP_VARIANT} -t lib/main_dev.dart -- ${APP_BUILD_TYPE_RELEASE}
+    - cp build/app/outputs/flutter-apk/app-"${QA_APP_VARIANT}"-"${APP_BUILD_TYPE_RELEASE}".apk app-"${QA_APP_VARIANT}"-"${APP_BUILD_TYPE_RELEASE}".apk
+  artifacts:
+    paths:
+      - app-${QA_APP_VARIANT}-${APP_BUILD_TYPE_RELEASE}.apk
+  after_script: 
+    - if [ $CI_JOB_STATUS == 'success' ]; then curl -s --user "api:${MAILGUN_API_KEY}" "https://api.mailgun.net/v3/$MAILGUN_SMTP_DOMAIN/messages" -F from='Devops Webandcrafts <devops@webandcrafts.in>' -F to=${MANAGER_EMAILS} -F subject="${PROJECT_NAME}_${APP_VERSION} - Build Success (Android)" -F text="The Android Build for ${PROJECT_NAME}_${APP_VERSION} is success, deployment initiated to firebase distribution"; else curl -s --user "api:${MAILGUN_API_KEY}" "https://api.mailgun.net/v3/$MAILGUN_SMTP_DOMAIN/messages" -F from='Devops Webandcrafts <devops@webandcrafts.in>' -F to=${MANAGER_EMAILS} -F subject="${PROJECT_NAME}_${APP_VERSION} - Build Failure (Android)" -F text="The Android Build for ${PROJECT_NAME}_${APP_VERSION} has failed, Kindly check for issues"; fi       
+  only:
+    - /^release\/([^\s]+)/
+qa-and-deploy:
+  stage: Deploy
+  tags :
+    - and-hybrid
+  script:
+    - npm install -g  firebase-tools@10.9.2
+    - firebase appdistribution:distribute app-"${QA_APP_VARIANT}"-"${APP_BUILD_TYPE_RELEASE}".apk --app ${FIREBASE_DEV_APP_ID} --release-notes-file release-notes.txt --groups ${FIREBASE_WAC_QA_GROUP} --token ${FIREBASE_CI_TOKEN}
+  only:
+    - /^release\/([^\s]+)/
+qa-ios-deploy:
+  stage: Deploy
+  tags:
+   - ios-hybrid
+  before_script:
+    - source ~/.zshrc
+    - flutter clean
+    - flutter build ios
+  script:
+    - cd ios
+    - cp -r fastlane/fastlane_release/* fastlane/
+    # - bundle install
+    - bundle exec fastlane qaBuild
+  after_script:   
+  - if [ $CI_JOB_STATUS == 'success' ]; then curl -s --user "api:${MAILGUN_API_KEY}" "https://api.mailgun.net/v3/$MAILGUN_SMTP_DOMAIN/messages" -F from='Devops Webandcrafts <devops@webandcrafts.in>' -F to=${QA_EMAILS} -F subject="${PROJECT_NAME}_${APP_VERSION} - (IOS) is available for QA" -F text="The iOS Build for ${PROJECT_NAME}_${APP_VERSION} is available on TestFlight"; else curl -s --user "api:${MAILGUN_API_KEY}" "https://api.mailgun.net/v3/$MAILGUN_SMTP_DOMAIN/messages" -F from='Devops Webandcrafts <devops@webandcrafts.in>' -F to=${MANAGER_EMAILS} -F subject="${PROJECT_NAME}_${APP_VERSION} - Build Failure (IOS)" -F text="The iOS Build for ${PROJECT_NAME}_${APP_VERSION} has failed, Kindly check for issues"; fi       
+  only:
+    - /^release\/([^\s]+)/
+
+############ UAT BUILD & DEPLOY CODE #####################
+
+uat-and-build:
+  stage: Build
+  when : always
+  tags :
+    - and-hybrid
+  script:
+    - flutter clean
+    - flutter build apk --flavor ${STAGING_APP_VARIANT} -t lib/main_stg.dart -- ${APP_BUILD_TYPE_RELEASE}
+    - cp build/app/outputs/flutter-apk/app-"${STAGING_APP_VARIANT}"-"${APP_BUILD_TYPE_RELEASE}".apk app-"${STAGING_APP_VARIANT}"-"${APP_BUILD_TYPE_RELEASE}".apk
+  artifacts:
+    paths:
+      - app-${STAGING_APP_VARIANT}-${APP_BUILD_TYPE_RELEASE}.apk
+  after_script: 
+    - if [ $CI_JOB_STATUS == 'success' ]; then curl -s --user "api:${MAILGUN_API_KEY}" "https://api.mailgun.net/v3/$MAILGUN_SMTP_DOMAIN/messages" -F from='Devops Webandcrafts <devops@webandcrafts.in>' -F to=${MANAGER_EMAILS} -F subject="${PROJECT_NAME}_${APP_VERSION} - Build Success (Android)" -F text="The Android Build for ${PROJECT_NAME}_${APP_VERSION} is success, deployment initiated to firebase distribution"; else curl -s --user "api:${MAILGUN_API_KEY}" "https://api.mailgun.net/v3/$MAILGUN_SMTP_DOMAIN/messages" -F from='Devops Webandcrafts <devops@webandcrafts.in>' -F to=${MANAGER_EMAILS} -F subject="${PROJECT_NAME}_${APP_VERSION} - Build Failure (Android)" -F text="The Android Build for ${PROJECT_NAME}_${APP_VERSION} has failed, Kindly check for issues"; fi       
+  only:
+    - staging
+uat-and-deploy:
+  stage: Deploy
+  tags :
+    - and-hybrid
+  script:
+    - npm install -g  firebase-tools@10.9.2
+    - firebase appdistribution:distribute app-"${STAGING_APP_VARIANT}"-"${APP_BUILD_TYPE_RELEASE}".apk --app ${FIREBASE_STAGE_APP_ID} --release-notes-file release-notes.txt --groups ${FIREBASE_WAC_QA_GROUP} --token ${FIREBASE_CI_TOKEN}
+  only:
+    - staging
+
+uat-ios-deploy:
+  stage: Deploy
+  tags:
+   - ios-hybrid
+  before_script:
+    - source ~/.zshrc
+    - flutter clean
+    - flutter packages pub get
+    - find . -name "Podfile" -execdir pod repo update \;
+    - find . -name "Podfile" -execdir pod install \;
+    - flutter build ios
+  script:
+    - cd ios
+    - cp -r fastlane/fastlane_staging/* fastlane/
+    # - bundle install
+    - bundle exec fastlane uatBuild
+  only:
+    - staging
+
+############ UAT BUILD & DEPLOY CODE #####################
+
+prod-and-build:
+  stage: Build
+  when : always
+  tags :
+    - and-hybrid
+  script:
+    - flutter clean
+    - flutter build apk --flavor ${PROD_APP_VARIANT} -t lib/main_pro.dart -- ${APP_BUILD_TYPE_RELEASE}
+    - cp build/app/outputs/flutter-apk/app-"${PROD_APP_VARIANT}"-"${APP_BUILD_TYPE_RELEASE}".apk app-"${PROD_APP_VARIANT}"-"${APP_BUILD_TYPE_RELEASE}".apk
+  artifacts:
+    paths:
+      - app-${PROD_APP_VARIANT}-${APP_BUILD_TYPE_RELEASE}.apk
+  after_script: 
+    - if [ $CI_JOB_STATUS == 'success' ]; then curl -s --user "api:${MAILGUN_API_KEY}" "https://api.mailgun.net/v3/$MAILGUN_SMTP_DOMAIN/messages" -F from='Devops Webandcrafts <devops@webandcrafts.in>' -F to=${MANAGER_EMAILS} -F subject="${PROJECT_NAME}_${APP_VERSION} - Build Success (Android)" -F text="The Android Build for ${PROJECT_NAME}_${APP_VERSION} is success, deployment initiated to firebase distribution"; else curl -s --user "api:${MAILGUN_API_KEY}" "https://api.mailgun.net/v3/$MAILGUN_SMTP_DOMAIN/messages" -F from='Devops Webandcrafts <devops@webandcrafts.in>' -F to=${MANAGER_EMAILS} -F subject="${PROJECT_NAME}_${APP_VERSION} - Build Failure (Android)" -F text="The Android Build for ${PROJECT_NAME}_${APP_VERSION} has failed, Kindly check for issues"; fi       
+  only:
+    - master
+prod-and-deploy:
+  stage: Deploy
+  tags :
+    - and-hybrid
+  script:
+    - npm install -g  firebase-tools@10.9.2
+    - firebase appdistribution:distribute app-"${PROD_APP_VARIANT}"-"${APP_BUILD_TYPE_RELEASE}".apk --app ${FIREBASE_DEV_APP_ID} --release-notes-file release-notes.txt --groups ${FIREBASE_WAC_QA_GROUP} --token ${FIREBASE_CI_TOKEN}
+  only:
+    - master
+
+prod-ios-deploy:
+  stage: Deploy
+  tags:
+   - ios-hybrid
+  before_script:
+    - source ~/.zshrc
+    - flutter clean
+    - flutter build ios
+  script:
+    - cd ios
+    - cp -r fastlane/fastlane_production/* fastlane/
+    # - bundle install
+    - bundle exec fastlane prodBuild
+  only:
+    - master    

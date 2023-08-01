@@ -1,0 +1,7 @@
+app_identifier("com.wac.gogopharma.develop") # The bundle identifier of your app
+apple_id("info@webandcrafts.com") # Your Apple email address
+itc_team_name("Webandcrafts") # App Store Connect Team ID
+team_id("T92Y92RB48") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

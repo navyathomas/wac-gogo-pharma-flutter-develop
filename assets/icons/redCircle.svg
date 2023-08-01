@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <g id="Group_61911" transform="translate(-19 -121)">
+    <circle id="Ellipse_63329" cx="20" cy="20" r="20" transform="translate(19 121)" fill="#ff5f5f"/>
+    <text id="BUY_1" transform="translate(39 139)" fill="#fff" font-size="9" font-family="Lexend-Bold, Lexend" font-weight="700"><tspan x="-13" y="0">BUY 1</tspan></text>
+    <text id="GET_1" transform="translate(38 150)" fill="#fff" font-size="9" font-family="Lexend-Bold, Lexend" font-weight="700"><tspan x="-13" y="0">GET 1</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,190 @@
+{
+  "project_info": {
+    "project_number": "412008018175",
+    "project_id": "gogo-pharma",
+    "storage_bucket": "gogo-pharma.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412008018175:android:6af2b80fe21126d1769cca",
+        "android_client_info": {
+          "package_name": "com.gogopharma.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "412008018175-ff74hao157bkuhclni1v0r9lru88hof6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gogopharma.app",
+            "certificate_hash": "8393bed0cd4c059039d489b7ef1f4936153dee8b"
+          }
+        },
+        {
+          "client_id": "412008018175-gtgvilf3olu6gc9vh35u62s21endc10f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gogopharma.app",
+            "certificate_hash": "e3830ff8505c88d245ca696612bc12b9f1132725"
+          }
+        },
+        {
+          "client_id": "412008018175-jdd9fj2grpfljfvrnvhe5uqbtoco1uur.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gogopharma.app",
+            "certificate_hash": "18f1dc19eb64bce2e646e63b244bcc3d22b33280"
+          }
+        },
+        {
+          "client_id": "412008018175-vihleu641q981vq2kqqkfi7aj43v510c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJq5zmTRde5TGH8WPn3Ma_awgpf3_soLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "412008018175-vihleu641q981vq2kqqkfi7aj43v510c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "412008018175-9vjfmksekt8kvoe4bnr1sevovvl0olhr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gogopharma.app.gogoPharma"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412008018175:android:03b96b90d12177a7769cca",
+        "android_client_info": {
+          "package_name": "com.gogopharma.app.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "412008018175-7ibuf0goagkcg18gmos9f2mbk4qmjr2v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gogopharma.app.dev",
+            "certificate_hash": "683863dd26d47a4c0cf941777a7d205a493254a9"
+          }
+        },
+        {
+          "client_id": "412008018175-p7fmudqm2cnsmepd6qvp7v95j2u20bjn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gogopharma.app.dev",
+            "certificate_hash": "8393bed0cd4c059039d489b7ef1f4936153dee8b"
+          }
+        },
+        {
+          "client_id": "412008018175-rus551fgsosue5nblj0aprn0njf2do2t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gogopharma.app.dev",
+            "certificate_hash": "18f1dc19eb64bce2e646e63b244bcc3d22b33280"
+          }
+        },
+        {
+          "client_id": "412008018175-vpscqm1rgco7gon13fo6j1dmk6j4rq9h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gogopharma.app.dev",
+            "certificate_hash": "e3830ff8505c88d245ca696612bc12b9f1132725"
+          }
+        },
+        {
+          "client_id": "412008018175-vihleu641q981vq2kqqkfi7aj43v510c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJq5zmTRde5TGH8WPn3Ma_awgpf3_soLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "412008018175-vihleu641q981vq2kqqkfi7aj43v510c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "412008018175-9vjfmksekt8kvoe4bnr1sevovvl0olhr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gogopharma.app.gogoPharma"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412008018175:android:6dbb484c157fa63a769cca",
+        "android_client_info": {
+          "package_name": "com.gogopharma.app.stage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "412008018175-0esl9v0aev3ad1lhkfae38fb0qpvc6pf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gogopharma.app.stage",
+            "certificate_hash": "e3830ff8505c88d245ca696612bc12b9f1132725"
+          }
+        },
+        {
+          "client_id": "412008018175-v9tgrg5gq024jj9ehtcubg6ae1mo304a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gogopharma.app.stage",
+            "certificate_hash": "18f1dc19eb64bce2e646e63b244bcc3d22b33280"
+          }
+        },
+        {
+          "client_id": "412008018175-vihleu641q981vq2kqqkfi7aj43v510c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJq5zmTRde5TGH8WPn3Ma_awgpf3_soLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "412008018175-vihleu641q981vq2kqqkfi7aj43v510c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "412008018175-9vjfmksekt8kvoe4bnr1sevovvl0olhr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gogopharma.app.gogoPharma"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

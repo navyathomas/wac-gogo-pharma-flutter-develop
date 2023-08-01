@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>412008018175-tu60q8vsliq3aipctoe6t9v72h4f2081.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.412008018175-tu60q8vsliq3aipctoe6t9v72h4f2081</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>412008018175-0esl9v0aev3ad1lhkfae38fb0qpvc6pf.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBY1nJJD9jV11NvGL2T8HJQ_1XQJjuG240</string>
+	<key>GCM_SENDER_ID</key>
+	<string>412008018175</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.wac.gogopharma</string>
+	<key>PROJECT_ID</key>
+	<string>gogo-pharma</string>
+	<key>STORAGE_BUCKET</key>
+	<string>gogo-pharma.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:412008018175:ios:83fbc9ab0e337918769cca</string>
+</dict>
+</plist>
